@@ -16,5 +16,5 @@ Bio
 #os 
 plotnine
 mygene
-random
+#random
 statistics
