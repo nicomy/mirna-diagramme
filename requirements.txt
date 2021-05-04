@@ -8,7 +8,8 @@ plotly-express
 numpy
 voila
 ipywidgets
-matplotlib-pyplot
+#matplotlib-pyplot
+matplotlib
 subprocess
 Bio
 Bio.Seq 
