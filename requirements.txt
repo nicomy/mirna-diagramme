@@ -10,9 +10,9 @@ voila
 ipywidgets
 #matplotlib-pyplot
 matplotlib
-subprocess
+#subprocess
 Bio
-Bio.Seq 
+#Bio.Seq 
 os 
 plotnine
 mygene
