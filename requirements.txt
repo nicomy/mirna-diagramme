@@ -2,8 +2,9 @@ jupyterlab
 requests
 pandas
 textblob
+plotly
 plotly-express
-plotly-graph_objects
+#plotly-graph_objects
 numpy
 voila
 ipywidgets
