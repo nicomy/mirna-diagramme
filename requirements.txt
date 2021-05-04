@@ -13,7 +13,7 @@ matplotlib
 #subprocess
 Bio
 #Bio.Seq 
-os 
+#os 
 plotnine
 mygene
 random
