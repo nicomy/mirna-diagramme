@@ -13,7 +13,7 @@ import itertools
 
 import plotly.graph_objects as go
 from ipywidgets import widgets
-
+import Bio.Seq as bs
     
 def read_clash_csv2df(f_clash_data_csv) :
     df_clash = pd.read_csv(f_clash_data_csv,skiprows=30,sep="\t")
@@ -65,6 +65,7 @@ def parce_read_smile(file_smile_z, df_clash, min_len,max_len,min_target):
     for row in df_clash[["microRNA_name","miRNA_seq"]].drop_duplicates().itertuples():
         _,mi_name,seq = row
         # print(mi)
+        seq = str(bs.Seq(seq).reverse_complement())
         for len_i in range(min_len,max_len+1):
             # print(len_i)
             len_seq = len(seq)
@@ -72,12 +73,19 @@ def parce_read_smile(file_smile_z, df_clash, min_len,max_len,min_target):
                 # print("\t"+seq[i:len_i+i])
                 mot = seq[i:len_i+i]
                 # name_short= mi_name.split('_')[2]
-                d_submot[ mot ]  = d_submot.get(mot, []) + [mi_name]
+                # d_submot[ mot ]  = d_submot.get(mot, []) + [mi_name]
+                d_submot.setdefault(mot, []).append(mi_name)
     
+    
+    # count = 0 
+    # for k,v in d_submot.items():
+    #     if len(v) > 1 : 
+    #         count +=1
+    # print(count,len(d_submot),sep='\t' )
     # compare smile with submotif inside miRna   
     nb_not_found =  0
     s_mirna_found = set()
-    tmp_name = 'MIMAT0004518_MirBase_miR-16-2*_microRNA'
+    # tmp_name = 'MIMAT0004518_MirBase_miR-16-2*_microRNA'
     for motif, l_v in d_smile_val.items() :
         if (motif in d_submot):
             l_mir = d_submot[motif]
@@ -90,7 +98,7 @@ def parce_read_smile(file_smile_z, df_clash, min_len,max_len,min_target):
         else : 
             d_smile_val[motif].append(np.nan)
             nb_not_found+=1
-        
+    
     # =============================================================================
     # create smile data frame linked with mirna and display 
     # =============================================================================
